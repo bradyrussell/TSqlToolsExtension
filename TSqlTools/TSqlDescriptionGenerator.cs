@@ -12,5 +12,10 @@ namespace TSqlTools
         {
             return TSqlToolsLib.TSqlTools.GenerateDescriptions(input);
         }
+
+        public static string GenerateComments(string input)
+        {
+            return TSqlToolsLib.TSqlTools.GenerateCommentsFromDescriptions(input);
+        }
     }
 }

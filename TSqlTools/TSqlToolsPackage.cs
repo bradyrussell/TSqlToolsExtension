@@ -48,6 +48,7 @@ namespace TSqlTools
             // Do any initialization that requires the UI thread after switching to the UI thread.
             await this.JoinableTaskFactory.SwitchToMainThreadAsync(cancellationToken);
             await GenerateDescriptionCommand.InitializeAsync(this);
+            await GenerateCommentsCommand.InitializeAsync(this);
         }
 
         #endregion

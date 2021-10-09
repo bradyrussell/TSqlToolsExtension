@@ -13,12 +13,12 @@ namespace TSqlTools
     /// <summary>
     /// Command handler
     /// </summary>
-    internal sealed class GenerateDescriptionCommand
+    internal sealed class GenerateCommentsCommand
     {
         /// <summary>
         /// Command ID.
         /// </summary>
-        public const int CommandId = 0x0100;
+        public const int CommandId = 4129;
 
         /// <summary>
         /// Command menu group (command set GUID).
@@ -31,12 +31,12 @@ namespace TSqlTools
         private readonly AsyncPackage package;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="GenerateDescriptionCommand"/> class.
+        /// Initializes a new instance of the <see cref="GenerateCommentsCommand"/> class.
         /// Adds our command handlers for menu (commands must exist in the command table file)
         /// </summary>
         /// <param name="package">Owner package, not null.</param>
         /// <param name="commandService">Command service to add command to, not null.</param>
-        private GenerateDescriptionCommand(AsyncPackage package, OleMenuCommandService commandService)
+        private GenerateCommentsCommand(AsyncPackage package, OleMenuCommandService commandService)
         {
             this.package = package ?? throw new ArgumentNullException(nameof(package));
             commandService = commandService ?? throw new ArgumentNullException(nameof(commandService));
@@ -49,7 +49,7 @@ namespace TSqlTools
         /// <summary>
         /// Gets the instance of the command.
         /// </summary>
-        public static GenerateDescriptionCommand Instance
+        public static GenerateCommentsCommand Instance
         {
             get;
             private set;
@@ -72,12 +72,12 @@ namespace TSqlTools
         /// <param name="package">Owner package, not null.</param>
         public static async Task InitializeAsync(AsyncPackage package)
         {
-            // Switch to the main thread - the call to AddCommand in GenerateDescriptionCommand's constructor requires
+            // Switch to the main thread - the call to AddCommand in GenerateCommentsCommand's constructor requires
             // the UI thread.
             await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync(package.DisposalToken);
 
             OleMenuCommandService commandService = await package.GetServiceAsync(typeof(IMenuCommandService)) as OleMenuCommandService;
-            Instance = new GenerateDescriptionCommand(package, commandService);
+            Instance = new GenerateCommentsCommand(package, commandService);
         }
 
         /// <summary>
@@ -95,8 +95,8 @@ namespace TSqlTools
             TextDocument textDocument = doc.Object() as TextDocument;
             var edit = textDocument.CreateEditPoint();
             var text = edit.GetText(textDocument.EndPoint);
-            edit.EndOfDocument();
-            edit.Insert("\n\n\n/* Begin Generated Descriptions */\n"+TSqlDescriptionGenerator.GenerateDescriptions(text)+ "\n/* End Generated Descriptions */\n");
+            edit.Delete(textDocument.EndPoint);
+            edit.Insert(TSqlDescriptionGenerator.GenerateComments(text));
         }
     }
 }
