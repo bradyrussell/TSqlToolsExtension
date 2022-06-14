@@ -53,6 +53,7 @@
     <Compile Include="GenerateCommentsCommand.cs" />
     <Compile Include="GenerateDescriptionCommand.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RemoveAnnotationsCommand.cs" />
     <Compile Include="TSqlDescriptionGenerator.cs" />
     <Compile Include="TSqlToolsPackage.cs" />
   </ItemGroup>
@@ -341,6 +342,7 @@
     <Content Include="Resources\desc_from_comment_icon.png" />
     <Content Include="Resources\GenerateCommentsCommand.png" />
     <Content Include="Resources\GenerateDescriptionCommand.png" />
+    <Content Include="Resources\RemoveAnnotationsCommand.png" />
   </ItemGroup>
   <ItemGroup>
     <Analyzer Include="..\packages\Microsoft.CodeAnalysis.BannedApiAnalyzers.2.9.4\analyzers\dotnet\cs\Microsoft.CodeAnalysis.BannedApiAnalyzers.dll" />
