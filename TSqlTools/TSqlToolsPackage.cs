@@ -49,6 +49,7 @@ namespace TSqlTools
             await this.JoinableTaskFactory.SwitchToMainThreadAsync(cancellationToken);
             await GenerateDescriptionCommand.InitializeAsync(this);
             await GenerateCommentsCommand.InitializeAsync(this);
+            await AnnotateCodeValuesCommand.InitializeAsync(this);
         }
 
         #endregion
